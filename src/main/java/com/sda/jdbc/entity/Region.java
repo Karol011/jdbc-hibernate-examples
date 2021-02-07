@@ -1,5 +1,6 @@
 package com.sda.jdbc.entity;
 
+// klasa służąca do reprezentacji rekordu z tabeli REGIONS
 public class Region {
 
     private int id;
