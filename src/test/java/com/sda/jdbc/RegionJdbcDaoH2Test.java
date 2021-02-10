@@ -1,28 +1,38 @@
 package com.sda.jdbc;
 
 import com.sda.jdbc.connection.CustomConnection;
-import com.sda.jdbc.connection.MySqlConnector;
+import com.sda.jdbc.connection.H2Connector;
 import com.sda.jdbc.entity.Region;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegionDaoMySqlTest {
 
-    private static final Logger logger = Logger.getLogger(RegionDaoMySqlTest.class);
+public class RegionJdbcDaoH2Test {
+
+    private static final Logger logger = Logger.getLogger(RegionJdbcDaoH2Test.class);
 
     private RegionsDAO regionsDAO;
-    private CustomConnection mySqlConnection;
+    private CustomConnection h2Connection;
 
     @BeforeClass
     public void setUp() {
-        mySqlConnection = new MySqlConnector();
-        regionsDAO = new RegionsDAO(mySqlConnection);
+        h2Connection = new H2Connector();
+        regionsDAO = new RegionsDAO(h2Connection);
+
+        try {
+            PreparedStatement statement =
+                    h2Connection.getConnection().prepareStatement("runscript from 'classpath:/hr.sql'");
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     @Test
@@ -93,20 +103,5 @@ public class RegionDaoMySqlTest {
         logger.info("Regions count: " + regions.size());
 
         Assert.assertEquals(regions.size(), 4);
-    }
-
-    @Test()
-    public void shouldFindMoreThanOneRegion() {
-        List<Region> regions = new ArrayList<>();
-
-        try {
-            regions.addAll(regionsDAO.findByName("'Europe' OR 1 = 1"));
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
-
-        logger.info("Regions count: " + regions.size());
-
-        Assert.assertTrue(regions.size() > 1);
     }
 }

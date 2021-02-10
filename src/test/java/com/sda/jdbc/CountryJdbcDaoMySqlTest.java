@@ -2,8 +2,8 @@ package com.sda.jdbc;
 
 import com.sda.jdbc.connection.CustomConnection;
 import com.sda.jdbc.connection.MySqlConnector;
+import com.sda.jdbc.entity.Country;
 import com.sda.jdbc.entity.Location;
-import com.sda.jdbc.entity.Region;
 import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -13,33 +13,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static java.util.Arrays.asList;
 
 @Log4j
-public class LocationsDaoMySqlTest {
+public class CountryJdbcDaoMySqlTest {
 
-    private LocationsDAO locationsDAO;
+    private CountryDAO countryDAO;
     private CustomConnection mySqlConnection;
 
     @BeforeClass
     public void setUp() {
         mySqlConnection = new MySqlConnector();
-        locationsDAO = new LocationsDAO(mySqlConnection);
+        countryDAO = new CountryDAO(mySqlConnection);
     }
 
-
     @Test
-    public void shouldReturnAllLocations() {
-        List<Location> locations = new ArrayList<>();
+    public void shouldReturnCountryByName(){
+        List<Country> countries = new ArrayList<>();
 
         try {
-            locations.addAll(locationsDAO.findAll());
+            countries.addAll(countryDAO.findCountryByName("Argentina"));
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
 
-        log.info("Locations count: " + locations.size());
+        log.info("Countries count: " + countries.size());
 
-        Assert.assertEquals(locations.size(), 23);
+        Assert.assertEquals(countries.size(), 1);
     }
 }
