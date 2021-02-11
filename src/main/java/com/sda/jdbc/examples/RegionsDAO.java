@@ -1,7 +1,7 @@
-package com.sda.jdbc;
+package com.sda.jdbc.examples;
 
-import com.sda.jdbc.connection.CustomConnection;
-import com.sda.jdbc.entity.Region;
+import com.sda.jdbc.commons.connection.CustomConnection;
+import com.sda.jdbc.commons.entity.Region;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

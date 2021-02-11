@@ -1,4 +1,4 @@
-package com.sda.jdbc.properties;
+package com.sda.jdbc.commons.properties;
 
 import org.apache.log4j.Logger;
 

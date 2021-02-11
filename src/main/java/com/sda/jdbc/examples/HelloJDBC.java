@@ -1,4 +1,4 @@
-package com.sda.jdbc;
+package com.sda.jdbc.examples;
 
 import java.sql.*;
 

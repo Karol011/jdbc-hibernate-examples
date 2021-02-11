@@ -1,4 +1,4 @@
-package com.sda.jdbc.entity;
+package com.sda.jdbc.commons.entity;
 
 // klasa służąca do reprezentacji rekordu z tabeli REGIONS
 public class Region {

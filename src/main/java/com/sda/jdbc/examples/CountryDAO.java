@@ -1,7 +1,7 @@
-package com.sda.jdbc;
+package com.sda.jdbc.examples;
 
-import com.sda.jdbc.connection.CustomConnection;
-import com.sda.jdbc.entity.Country;
+import com.sda.jdbc.commons.connection.CustomConnection;
+import com.sda.jdbc.commons.entity.Country;
 import lombok.extern.log4j.Log4j;
 
 import java.sql.*;

@@ -1,6 +1,6 @@
-package com.sda.jdbc.connection;
+package com.sda.jdbc.commons.connection;
 
-import com.sda.jdbc.properties.PropertiesReader;
+import com.sda.jdbc.commons.properties.PropertiesReader;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

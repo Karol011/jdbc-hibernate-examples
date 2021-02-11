@@ -1,9 +1,9 @@
-package com.sda.jdbc;
+package com.sda.jdbc.examples.mysql;
 
-import com.sda.jdbc.connection.CustomConnection;
-import com.sda.jdbc.connection.MySqlConnector;
-import com.sda.jdbc.entity.Location;
-import com.sda.jdbc.entity.Region;
+import com.sda.jdbc.examples.LocationsDAO;
+import com.sda.jdbc.commons.connection.CustomConnection;
+import com.sda.jdbc.commons.connection.MySqlConnector;
+import com.sda.jdbc.commons.entity.Location;
 import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.testng.Assert.*;
 
 @Log4j
 public class LocationsJdbcDaoMySqlTest {

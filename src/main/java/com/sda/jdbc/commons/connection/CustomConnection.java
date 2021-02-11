@@ -1,4 +1,4 @@
-package com.sda.jdbc.connection;
+package com.sda.jdbc.commons.connection;
 
 import java.sql.Connection;
 

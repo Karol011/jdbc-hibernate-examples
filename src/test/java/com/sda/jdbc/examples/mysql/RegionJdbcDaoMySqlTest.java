@@ -1,38 +1,31 @@
-package com.sda.jdbc;
+package com.sda.jdbc.examples.mysql;
 
-import com.sda.jdbc.connection.CustomConnection;
-import com.sda.jdbc.connection.H2Connector;
-import com.sda.jdbc.entity.Region;
+import com.sda.jdbc.examples.RegionsDAO;
+import com.sda.jdbc.commons.connection.CustomConnection;
+import com.sda.jdbc.commons.connection.MySqlConnector;
+import com.sda.jdbc.commons.entity.Region;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 
-public class RegionJdbcDaoH2Test {
+public class RegionJdbcDaoMySqlTest {
 
-    private static final Logger logger = Logger.getLogger(RegionJdbcDaoH2Test.class);
+    private static final Logger logger = Logger.getLogger(RegionJdbcDaoMySqlTest.class);
 
     private RegionsDAO regionsDAO;
-    private CustomConnection h2Connection;
+    private CustomConnection mySqlConnection;
 
     @BeforeClass
     public void setUp() {
-        h2Connection = new H2Connector();
-        regionsDAO = new RegionsDAO(h2Connection);
-
-        try {
-            PreparedStatement statement =
-                    h2Connection.getConnection().prepareStatement("runscript from 'classpath:/hr.sql'");
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        mySqlConnection = new MySqlConnector();
+        regionsDAO = new RegionsDAO(mySqlConnection);
     }
 
     @Test
@@ -102,6 +95,47 @@ public class RegionJdbcDaoH2Test {
 
         logger.info("Regions count: " + regions.size());
 
-        Assert.assertEquals(regions.size(), 4);
+        Assert.assertEquals(regions.size(), 7);
+    }
+
+    @Test()
+    public void shouldFindMoreThanOneRegion() {
+        List<Region> regions = new ArrayList<>();
+
+        try {
+            regions.addAll(regionsDAO.findByName("'Europe' OR 1 = 1"));
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        logger.info("Regions count: " + regions.size());
+
+        Assert.assertTrue(regions.size() > 1);
+    }
+
+    @Test
+    public void shouldSaveRegions() {
+        int countAfterSave = 0;
+        int countBeforeSave = 0;
+
+        Region firstRegion = new Region(55, "Testowy region 1");
+        Region secondRegion = new Region(66, "Testowy region 2");
+        Region thirdRegion = new Region(77, "Testowy region 3");
+
+        try {
+            regionsDAO.deleteBatch(asList(firstRegion, secondRegion,thirdRegion));
+
+            countBeforeSave = regionsDAO.findAll().size();
+            logger.info("Regions before save: " + countBeforeSave);
+
+            regionsDAO.saveBatch(asList(firstRegion, secondRegion,thirdRegion));
+
+            countAfterSave = regionsDAO.findAll().size();
+            logger.info("Regions after save: " + countAfterSave);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        Assert.assertTrue(countBeforeSave < countAfterSave);
     }
 }
