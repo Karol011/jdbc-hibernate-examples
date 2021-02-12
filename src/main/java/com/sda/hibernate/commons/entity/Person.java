@@ -27,7 +27,7 @@ public class Person {
 
     //@ManyToOne(fetch = FetchType.EAGER) // dla sprawdzenia SELECT n+1 problem
     @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     @JoinColumn(name = "country_id")
     private Country country;
 

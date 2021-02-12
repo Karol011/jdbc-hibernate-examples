@@ -26,6 +26,7 @@ public class CountryDaoTest {
     @Test
     public void shouldSaveCountry() {
         Country country = new Country();
+
         country.setName("France");
 
         countryDao.save(country);

@@ -41,7 +41,7 @@ public class PersonDaoTest {
         p.setFirstName("Emmanuel");
         p.setLastName("Olisadebe");
 
-        Country country = new Country(1, "Poland");
+        Country country = new Country(1, "Nigeria");
         p.setCountry(country);
 
         personDao.saveOrUpdate(p);
