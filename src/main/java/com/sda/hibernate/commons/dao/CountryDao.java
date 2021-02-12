@@ -1,7 +1,7 @@
-package com.sda.hibernate.dao;
+package com.sda.hibernate.commons.dao;
 
-import com.sda.hibernate.connection.HibernateUtil;
-import com.sda.hibernate.entity.Country;
+import com.sda.hibernate.commons.connection.HibernateUtil;
+import com.sda.hibernate.commons.entity.Country;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

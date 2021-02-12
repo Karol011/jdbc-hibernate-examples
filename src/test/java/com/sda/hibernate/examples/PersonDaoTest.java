@@ -1,8 +1,8 @@
-package com.sda.hibernate;
+package com.sda.hibernate.examples;
 
-import com.sda.hibernate.dao.PersonDao;
-import com.sda.hibernate.entity.Country;
-import com.sda.hibernate.entity.Person;
+import com.sda.hibernate.commons.dao.PersonDao;
+import com.sda.hibernate.commons.entity.Country;
+import com.sda.hibernate.commons.entity.Person;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 

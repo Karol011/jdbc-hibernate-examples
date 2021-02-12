@@ -40,11 +40,11 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
 
         <!-- List of XML mapping files or annotated classes -->
-        <mapping class="com.sda.hibernate.entity.Country"/>
-        <mapping class="com.sda.hibernate.entity.Genre"/>
-        <mapping class="com.sda.hibernate.entity.Movie"/>
-        <mapping class="com.sda.hibernate.entity.Person"/>
-        <mapping class="com.sda.hibernate.entity.PersonType"/>
-        <mapping class="com.sda.hibernate.entity.PersonMovie"/>
+        <mapping class="com.sda.hibernate.commons.entity.Country"/>
+        <mapping class="com.sda.hibernate.commons.entity.Genre"/>
+        <mapping class="com.sda.hibernate.commons.entity.Movie"/>
+        <mapping class="com.sda.hibernate.commons.entity.Person"/>
+        <mapping class="com.sda.hibernate.commons.entity.PersonType"/>
+        <mapping class="com.sda.hibernate.commons.entity.PersonMovie"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,9 +1,9 @@
-package com.sda.hibernate;
+package com.sda.hibernate.examples;
 
-import com.sda.hibernate.dao.MovieDao;
-import com.sda.hibernate.entity.Movie;
-import com.sda.hibernate.entity.Person;
-import com.sda.hibernate.entity.PersonMovie;
+import com.sda.hibernate.commons.dao.MovieDao;
+import com.sda.hibernate.commons.entity.Movie;
+import com.sda.hibernate.commons.entity.Person;
+import com.sda.hibernate.commons.entity.PersonMovie;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;

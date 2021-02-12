@@ -1,4 +1,4 @@
-package com.sda.hibernate.connection;
+package com.sda.hibernate.commons.connection;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;

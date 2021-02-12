@@ -1,7 +1,7 @@
-package com.sda.hibernate;
+package com.sda.hibernate.examples;
 
-import com.sda.hibernate.dao.CountryDao;
-import com.sda.hibernate.entity.Country;
+import com.sda.hibernate.commons.dao.CountryDao;
+import com.sda.hibernate.commons.entity.Country;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;

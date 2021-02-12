@@ -6,7 +6,7 @@
 	<groupId>com.sda</groupId>
 	<artifactId>jdbc-hibernate-examples</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jdbc-hibernate-examples</name>
+	<name>JDBC i Hibernate</name>
 	<description>Materiały na zajęcia - JDBC i Hibernate</description>
 
 	<properties>

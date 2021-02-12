@@ -1,4 +1,4 @@
-package com.sda.hibernate.entity;
+package com.sda.hibernate.commons.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
