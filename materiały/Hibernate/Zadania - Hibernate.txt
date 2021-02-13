@@ -1,0 +1,17 @@
+W projekcie jdbc-hibernate-examples znajduje się klasa testowa o nazwie ZadaniaHibernate.
+Każdy podpunkt z tego zestawu reprezentuje oddzielny test we wspomnianej klasie.
+Po sklonowaniu i zbudowaniu projektu lokalnie wszystkie testy kończą się niepowodzeniem.
+Celem poszczególnych zadań jest zaimplementowanie kolejnych metod przy pomocy podejścia TDD (Test Driven Development).
+Oznacza to doprowadzenie ich do takiej postaci aby w zakresie każdego z testów była zrealizowana treść zadania oraz
+wykonanie samych testów oczywiście powinno po tym kończyć się sukcesem.
+
+1. Wyszukaj film po identyfikatorze.
+2. Dodaj nowy film.
+3. Usuń film na podstawie dowolnych parametrów, np. identyfikatora.
+4. Zmień dane o wybranym filmie np. tytuł.
+5. Znajdź wszystkie filmy.
+6. (użyj HQL) Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
+7. (użyj Criteria API)  Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
+8. (użyj HQL) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
+9. (użyj Criteria API) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
+10. Zapisz z wykorzystaniem opcji cascade dane o filmie wraz z osobami, które brały przy nim udział.

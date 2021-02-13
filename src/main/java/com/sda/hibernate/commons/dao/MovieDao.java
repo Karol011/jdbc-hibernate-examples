@@ -32,6 +32,41 @@ public class MovieDao {
         }
     }
 
+    public List<Movie> findAllMovies() {
+        List<Movie> movies = new ArrayList<>();
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            movies = session.createQuery("SELECT m FROM Movie m").getResultList();
+
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+
+            logger.error(e.getMessage(), e);
+        }
+
+        return movies;
+    }
+
+    public void delete(Movie movie) {
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.delete(movie);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+
+            logger.error(e.getMessage(), e);
+        }
+    }
+
     public List<PersonMovie> findAll() {
         Transaction transaction = null;
         List<PersonMovie> personMovies = new ArrayList<>();
@@ -59,7 +94,7 @@ public class MovieDao {
         return personMovies;
     }
 
-    public List<Person> findAllActorsForMovie(Integer movieId) {
+    public List<Person> findAllActorsForMovieHQL(Integer movieId) {
         Transaction transaction = null;
         List<Person> personMovies = new ArrayList<>();
 
@@ -96,6 +131,18 @@ public class MovieDao {
         return personMovies;
     }
 
+    public List<Person> findAllActorsForMovieCriteriaAPI(Integer movieId) {
+        return null;
+    }
+
+    public List<Movie> findAllMoviesForActorHQL(String firstName, String lastName) {
+        return null;
+    }
+
+    public List<Movie> findAllMoviesForActorCriteriaAPI(String firstName, String lastName) {
+        return null;
+    }
+
     public Movie findById(Integer id) {
         Transaction transaction = null;
 
@@ -103,6 +150,30 @@ public class MovieDao {
             transaction = session.beginTransaction();
 
             Movie movie = session.get(Movie.class, id);
+
+            transaction.commit();
+
+            return movie;
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+
+            logger.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public Movie findByName(String title) {
+        Transaction transaction = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            Movie movie = (Movie) session.createQuery("FROM Movie m " +
+                    "WHERE m.title = :title").
+                    setParameter("title", title).
+                    getSingleResult();
 
             transaction.commit();
 

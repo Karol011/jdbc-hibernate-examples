@@ -1,0 +1,18 @@
+W projekcie jdbc-hibernate-examples znajduje się klasa testowa o nazwie ZadaniaJDBC.
+Każdy podpunkt z tego zestawu reprezentuje oddzielny test we wspomnianej klasie.
+Po sklonowaniu i zbudowaniu projektu lokalnie wszystkie testy kończą się niepowodzeniem.
+Celem poszczególnych zadań jest zaimplementowanie kolejnych metod przy pomocy podejścia TDD (Test Driven Development).
+Oznacza to doprowadzenie ich do takiej postaci aby w zakresie każdego z testów była zrealizowana treść zadania oraz
+wykonanie samych testów oczywiście powinno po tym kończyć się sukcesem.
+
+1. Połącz się ze swoim serwerem bazy danych MySQL.
+2. Wyszukaj pracownika po identyfikatorze.
+3. Dodaj nowego pracownika.
+4. Usuń pracownika na podstawie dowolnych parametrów, np. identyfikator.
+5. Zmień dane pracownika np. e-mail.
+6. Znajdź wszystkich pracowników.
+7. Dodaj wielu pracowników przy pomocy jednego zapytania.
+8. Usuń wielu pracowników przy pomocy jednego zapytania.
+9. Policz pracowników danego działu na podstawie jego identyfikatora.
+10. Znajdź dane kierownika działu na podstawie identyfikatora działu.
+11. Znajdź szczegółowe informacje o dziale (w tym lokalizacja, kraj ,kontynent) na podstawie jego idenftyfikatora.

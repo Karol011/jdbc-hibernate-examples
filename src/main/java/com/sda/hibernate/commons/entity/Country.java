@@ -36,17 +36,17 @@ public class Country {
 //    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
 //    private List<Person> persons;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return id.equals(country.id) &&
-                name.equals(country.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Country country = (Country) o;
+//        return id.equals(country.id) &&
+//                name.equals(country.name);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, name);
+//    }
 }

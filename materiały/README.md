@@ -12,23 +12,9 @@
 - Hibernate Tutorial - http://www.mkyong.com/tutorials/hibernate-tutorials/
 
 # Część 1 - JDBC
-- 02.02.2019
-	- [repozytorium git](https://bitbucket.org/pabloo99/jdbc-examples)
-
 	- [prezentacja 1](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/prezentacja%201.pdf)
-	
-	- [zestaw 1](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/zestaw%201.pdf)
+	- [zadania JDBC](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/zestaw%201.pdf)
 
 # Część 2 - Hibernate
-- 02.02.2019
-	- [repozytorium git](https://bitbucket.org/pabloo99/hibernate-examples)
-
 	- [prezentacja 2](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/prezentacja%202.pdf)
-	
-	- [zestaw 2](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/zestaw%201.pdf)
-	
-- 09.02.2019
-	- [repozytorium git](https://bitbucket.org/pabloo99/hibernate-examples)
-
-	- [zestaw 3](https://bitbucket.org/pabloo99/database_programming9/src/master/09.02.2019/zestaw%203.pdf)
-	
+	- [zadania Hibernate](https://bitbucket.org/pabloo99/database_programming9/src/master/02.02.2019/zestaw%201.pdf)
