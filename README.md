@@ -12,9 +12,9 @@
 - Hibernate Tutorial - http://www.mkyong.com/tutorials/hibernate-tutorials/
 
 # Część 1 - JDBC
-	- [prezentacja 1](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/JDBC/prezentacja%201.pdf)
-	- [zadania JDBC](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/JDBC/Zadania%20-%20JDBC.txt)
+- [prezentacja 1](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/JDBC/prezentacja%201.pdf)
+- [zadania JDBC](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/JDBC/Zadania%20-%20JDBC.txt)
 
 # Część 2 - Hibernate
-	- [prezentacja 2](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/Hibernate/prezentacja%202.pdf)
-	- [zadania Hibernate](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/Hibernate/Zadania%20-%20Hibernate.txt)
+- [prezentacja 2](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/Hibernate/prezentacja%202.pdf)
+- [zadania Hibernate](https://bitbucket.org/pabloo99/jdbc-hibernate-examples/src/master/materia%C5%82y/Hibernate/Zadania%20-%20Hibernate.txt)
