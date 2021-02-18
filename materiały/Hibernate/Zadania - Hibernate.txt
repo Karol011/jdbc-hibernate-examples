@@ -10,8 +10,13 @@ wykonanie samych testów oczywiście powinno po tym kończyć się sukcesem.
 3. Usuń film na podstawie dowolnych parametrów, np. identyfikatora.
 4. Zmień dane o wybranym filmie np. tytuł.
 5. Znajdź wszystkie filmy.
-6. (użyj HQL) Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
-7. (użyj Criteria API)  Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
-8. (użyj HQL) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
-9. (użyj Criteria API) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
-10. Zapisz z wykorzystaniem opcji cascade dane o filmie wraz z osobami, które brały przy nim udział.
+
+6. (użyj NativeSQL)  Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu
+7. (użyj HQL) Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
+8. (użyj Criteria API)  Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu.
+
+9. (użyj NativeSQL) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
+10. (użyj HQL) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
+11. (użyj Criteria API) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko.
+
+12. Zapisz z wykorzystaniem opcji cascade dane o filmie wraz z osobami, które brały przy nim udział.
