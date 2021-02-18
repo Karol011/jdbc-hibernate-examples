@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: hr
+-- Host: localhost    Database: hr_hibernate
 -- ------------------------------------------------------
--- Server version	5.6.34-log
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `countries` (
   `COUNTRY_ID` char(2) NOT NULL COMMENT 'Primary key of countries table.',
   `COUNTRY_NAME` varchar(40) DEFAULT NULL COMMENT 'Country name',
@@ -48,12 +48,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `departments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `departments` (
-  `DEPARTMENT_ID` smallint(6) NOT NULL COMMENT 'Primary key column of departments table.',
+  `DEPARTMENT_ID` smallint NOT NULL COMMENT 'Primary key column of departments table.',
   `DEPARTMENT_NAME` varchar(30) NOT NULL COMMENT 'A not null column that shows name of a department. Administration,\nMarketing, Purchasing, Human Resources, Shipping, IT, Executive, Public\nRelations, Sales, Finance, and Accounting. ',
-  `MANAGER_ID` int(11) DEFAULT NULL COMMENT 'Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column.',
-  `LOCATION_ID` smallint(6) DEFAULT NULL COMMENT 'Location id where a department is located. Foreign key to location_id column of locations table.',
+  `MANAGER_ID` int DEFAULT NULL COMMENT 'Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column.',
+  `LOCATION_ID` smallint DEFAULT NULL COMMENT 'Location id where a department is located. Foreign key to location_id column of locations table.',
   UNIQUE KEY `DEPT_ID_PK` (`DEPARTMENT_ID`),
   KEY `DEPT_LOCATION_IX` (`LOCATION_ID`),
   KEY `DEPT_MGR_FK` (`MANAGER_ID`),
@@ -78,9 +78,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employees` (
-  `EMPLOYEE_ID` int(11) NOT NULL DEFAULT '0' COMMENT 'Primary key of employees table.',
+  `EMPLOYEE_ID` int NOT NULL DEFAULT '0' COMMENT 'Primary key of employees table.',
   `FIRST_NAME` varchar(20) DEFAULT NULL COMMENT 'First name of the employee. A not null column.',
   `LAST_NAME` varchar(25) NOT NULL COMMENT 'Last name of the employee. A not null column.',
   `EMAIL` varchar(25) NOT NULL COMMENT 'Email id of the employee',
@@ -89,8 +89,8 @@ CREATE TABLE `employees` (
   `JOB_ID` varchar(10) NOT NULL COMMENT 'Current job of the employee; foreign key to job_id column of the\njobs table. A not null column.',
   `SALARY` decimal(8,2) DEFAULT NULL COMMENT 'Monthly salary of the employee. Must be greater\nthan zero (enforced by constraint emp_salary_min)',
   `COMMISSION_PCT` decimal(2,2) DEFAULT NULL COMMENT 'Commission percentage of the employee; Only employees in sales\ndepartment elgible for commission percentage',
-  `MANAGER_ID` int(11) DEFAULT NULL COMMENT 'Manager id of the employee; has same domain as manager_id in\ndepartments table. Foreign key to employee_id column of employees table.\n(useful for reflexive joins and CONNECT BY query)',
-  `DEPARTMENT_ID` smallint(6) DEFAULT NULL COMMENT 'Department id where employee works; foreign key to department_id\ncolumn of the departments table',
+  `MANAGER_ID` int DEFAULT NULL COMMENT 'Manager id of the employee; has same domain as manager_id in\ndepartments table. Foreign key to employee_id column of employees table.\n(useful for reflexive joins and CONNECT BY query)',
+  `DEPARTMENT_ID` smallint DEFAULT NULL COMMENT 'Department id where employee works; foreign key to department_id\ncolumn of the departments table',
   PRIMARY KEY (`EMPLOYEE_ID`),
   UNIQUE KEY `EMP_EMAIL_UK` (`EMAIL`),
   UNIQUE KEY `EMP_EMP_ID_PK` (`EMPLOYEE_ID`),
@@ -120,13 +120,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `job_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job_history` (
-  `EMPLOYEE_ID` int(11) NOT NULL COMMENT 'A not null column in the complex primary key employee_id+start_date.\nForeign key to employee_id column of the employee table',
+  `EMPLOYEE_ID` int NOT NULL COMMENT 'A not null column in the complex primary key employee_id+start_date.\nForeign key to employee_id column of the employee table',
   `START_DATE` datetime NOT NULL COMMENT 'A not null column in the complex primary key employee_id+start_date.\nMust be less than the end_date of the job_history table. (enforced by\nconstraint jhist_date_interval)',
   `END_DATE` datetime NOT NULL COMMENT 'Last day of the employee in this job role. A not null column. Must be\ngreater than the start_date of the job_history table.\n(enforced by constraint jhist_date_interval)',
   `JOB_ID` varchar(10) NOT NULL COMMENT 'Job role in which the employee worked in the past; foreign key to\njob_id column in the jobs table. A not null column.',
-  `DEPARTMENT_ID` smallint(6) DEFAULT NULL COMMENT 'Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table',
+  `DEPARTMENT_ID` smallint DEFAULT NULL COMMENT 'Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table',
   PRIMARY KEY (`EMPLOYEE_ID`,`START_DATE`),
   UNIQUE KEY `JHIST_EMP_ID_ST_DATE_PK` (`EMPLOYEE_ID`,`START_DATE`),
   KEY `JHIST_JOB_IX` (`JOB_ID`),
@@ -154,12 +154,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobs` (
   `JOB_ID` varchar(10) NOT NULL COMMENT 'Primary key of jobs table.',
   `JOB_TITLE` varchar(35) NOT NULL COMMENT 'A not null column that shows job title, e.g. AD_VP, FI_ACCOUNTANT',
-  `MIN_SALARY` int(11) DEFAULT NULL COMMENT 'Minimum salary for a job title.',
-  `MAX_SALARY` int(11) DEFAULT NULL COMMENT 'Maximum salary for a job title',
+  `MIN_SALARY` int DEFAULT NULL COMMENT 'Minimum salary for a job title.',
+  `MAX_SALARY` int DEFAULT NULL COMMENT 'Maximum salary for a job title',
   PRIMARY KEY (`JOB_ID`),
   UNIQUE KEY `JOB_ID_PK` (`JOB_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='jobs table with job titles and salary ranges. Contains 19 rows.\nReferences with employees and job_history table.';
@@ -181,9 +181,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `locations` (
-  `LOCATION_ID` smallint(6) NOT NULL COMMENT 'Primary key of locations table',
+  `LOCATION_ID` smallint NOT NULL COMMENT 'Primary key of locations table',
   `STREET_ADDRESS` varchar(40) DEFAULT NULL COMMENT 'Street address of an office, warehouse, or production site of a company.\nContains building number and street name',
   `POSTAL_CODE` varchar(12) DEFAULT NULL COMMENT 'Postal code of the location of an office, warehouse, or production site\nof a company. ',
   `CITY` varchar(30) NOT NULL COMMENT 'A not null column that shows city where an office, warehouse, or\nproduction site of a company is located. ',
@@ -214,7 +214,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `regions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `regions` (
   `REGION_ID` double NOT NULL,
   `REGION_NAME` varchar(25) DEFAULT NULL,
@@ -229,9 +229,34 @@ CREATE TABLE `regions` (
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (1,'Europe'),(2,'Americas'),(3,'Asia'),(4,'Middle East and Africa');
+INSERT INTO `regions` VALUES (1,'Europe'),(2,'Americas'),(3,'Asia'),(4,'Middle East and Africa'),(55,'Testowy region 1'),(66,'Testowy region 2'),(77,'Testowy region 3');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'hr_hibernate'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `getCountryByName` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE PROCEDURE `getCountryByName`(
+IN countryName VARCHAR(255))
+BEGIN
+	SELECT * FROM countries
+	WHERE country_name = countryName;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -242,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-27 22:23:36
+-- Dump completed on 2021-02-18 23:52:02
