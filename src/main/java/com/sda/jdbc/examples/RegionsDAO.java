@@ -36,8 +36,7 @@ public class RegionsDAO {
     }
 
     // Wyszukiwanie kontynentu po nazwie.
-    public List<Region> findByName(String name) throws SQLException {
-
+    public List<Region> findByName(String name) {
         /*
          *    Budujemy zapytanie SQL, które wyszuka kontynent o podanej nazwie.
          *    Warto zwrócić uwagę, że parametr metody - name po prostu 'doklejamy' do naszego zapytania SQL.
@@ -100,8 +99,7 @@ public class RegionsDAO {
         return null;
     }
 
-    public Region findById(int regionId) throws SQLException {
-
+    public Region findById(int regionId) {
         String query = "SELECT region_id, region_name FROM regions " +
                 "WHERE region_id = ?";
 
@@ -130,8 +128,7 @@ public class RegionsDAO {
         return null;
     }
 
-    public List<Region> findAll() throws SQLException {
-
+    public List<Region> findAll() {
         String query = "SELECT * FROM regions ";
 
         List<Region> regions = new ArrayList<>();
@@ -159,8 +156,7 @@ public class RegionsDAO {
         return regions;
     }
 
-    public void save(Region region) throws SQLException {
-
+    public void save(Region region) {
         String query = "INSERT INTO regions(region_id, region_name)  " +
                 "VALUES (?, ?)";
 
@@ -179,7 +175,7 @@ public class RegionsDAO {
         }
     }
 
-    public void delete(int regionId) throws SQLException {
+    public void delete(int regionId) {
         String query = "DELETE FROM regions WHERE region_id = ? ";
 
         try (Connection connection = connector.getConnection();
@@ -197,8 +193,7 @@ public class RegionsDAO {
         }
     }
 
-    public void update(Region region) throws SQLException {
-
+    public void update(Region region) {
         String query = "UPDATE regions " +
                 "SET region_name = ? WHERE region_id = ?";
 
@@ -218,7 +213,7 @@ public class RegionsDAO {
         }
     }
 
-    public void saveBatch(List<Region> regions) throws SQLException {
+    public void saveBatch(List<Region> regions) {
         String query = "INSERT INTO regions(region_id, region_name)  " +
                 "VALUES (?, ?)";
 
@@ -238,8 +233,7 @@ public class RegionsDAO {
         }
     }
 
-    public void deleteBatch(List<Region> regions) throws SQLException {
-
+    public void deleteBatch(List<Region> regions) {
         String query = "DELETE FROM regions WHERE region_id = ? ";
 
         try (Connection connection = connector.getConnection();

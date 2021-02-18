@@ -29,13 +29,7 @@ public class LocationsJdbcDaoMySqlTest {
 
     @Test
     public void shouldReturnAllLocations() {
-        List<Location> locations = new ArrayList<>();
-
-        try {
-            locations.addAll(locationsDAO.findAll());
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
+        List<Location> locations = new ArrayList<>(locationsDAO.findAll());
 
         log.info("Locations count: " + locations.size());
 
@@ -61,22 +55,19 @@ public class LocationsJdbcDaoMySqlTest {
         secondLocation.setPostalCode("CODE2");
         secondLocation.setCity("City 2");
 
-        try {
-            locationsDAO.deleteBatch(asList(firstLocation, secondLocation));
 
-            locationsDAO.saveBatch(asList(firstLocation, secondLocation));
-            List<Location> result = locationsDAO.findAll();
+        locationsDAO.deleteBatch(asList(firstLocation, secondLocation));
 
-            countAfterSave = result.size();
+        locationsDAO.saveBatch(asList(firstLocation, secondLocation));
+        List<Location> result = locationsDAO.findAll();
 
-            locationsDAO.deleteBatch(asList(firstLocation, secondLocation));
+        countAfterSave = result.size();
 
-            result = locationsDAO.findAll();
-            countAfterDelete = result.size();
+        locationsDAO.deleteBatch(asList(firstLocation, secondLocation));
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
+        result = locationsDAO.findAll();
+        countAfterDelete = result.size();
+
 
         Assert.assertEquals(countAfterSave, 25);
         Assert.assertEquals(countAfterDelete, 23);
@@ -84,13 +75,7 @@ public class LocationsJdbcDaoMySqlTest {
 
     @Test
     public void shouldReturnAllLocationsWithPassingOnlyOneName() {
-        List<Location> locations = new ArrayList<>();
-
-        try {
-            locations.addAll(locationsDAO.findByCityWithSQLInjection("'Roma' OR 1 = 1"));
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
+        List<Location> locations = new ArrayList<>(locationsDAO.findByCityWithSQLInjection("'Roma' OR 1 = 1"));
 
         log.info("Locations count: " + locations.size());
 

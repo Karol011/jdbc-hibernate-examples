@@ -33,13 +33,10 @@ public class RegionJdbcDaoMySqlTest {
         Region regionToSave = new Region(5, "Africa");
         Region regionFound = new Region();
 
-        try {
-            regionsDAO.save(regionToSave);
+        regionsDAO.save(regionToSave);
 
-            regionFound = regionsDAO.findById(5);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        regionFound = regionsDAO.findById(5);
+
 
         Assert.assertEquals(regionToSave, regionFound);
     }
@@ -49,17 +46,13 @@ public class RegionJdbcDaoMySqlTest {
         Region item = new Region();
         Region afterUpdate = new Region();
 
-        try {
-            item = regionsDAO.findById(5);
+        item = regionsDAO.findById(5);
 
-            item.setName("Africa Test");
+        item.setName("Africa Test");
 
-            regionsDAO.update(item);
+        regionsDAO.update(item);
 
-            afterUpdate = regionsDAO.findById(5);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        afterUpdate = regionsDAO.findById(5);
 
         Assert.assertEquals(afterUpdate.getName(), "Africa Test");
     }
@@ -69,15 +62,11 @@ public class RegionJdbcDaoMySqlTest {
         int countBeforeDelete = 0;
         int countAfterDelete = 0;
 
-        try {
-            countBeforeDelete = regionsDAO.findAll().size();
+        countBeforeDelete = regionsDAO.findAll().size();
 
-            regionsDAO.delete(5);
+        regionsDAO.delete(5);
 
-            countAfterDelete = regionsDAO.findAll().size();
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        countAfterDelete = regionsDAO.findAll().size();
 
         Assert.assertEquals(countAfterDelete, countBeforeDelete - 1);
     }
@@ -85,13 +74,7 @@ public class RegionJdbcDaoMySqlTest {
 
     @Test(dependsOnMethods = {"shouldDeleteRegions"})
     public void shouldFindAllRegions() {
-        List<Region> regions = new ArrayList<>();
-
-        try {
-            regions.addAll(regionsDAO.findAll());
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        List<Region> regions = new ArrayList<>(regionsDAO.findAll());
 
         logger.info("Regions count: " + regions.size());
 
@@ -100,13 +83,7 @@ public class RegionJdbcDaoMySqlTest {
 
     @Test()
     public void shouldFindMoreThanOneRegion() {
-        List<Region> regions = new ArrayList<>();
-
-        try {
-            regions.addAll(regionsDAO.findByName("'Europe' OR 1 = 1"));
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        List<Region> regions = new ArrayList<>(regionsDAO.findByName("'Europe' OR 1 = 1"));
 
         logger.info("Regions count: " + regions.size());
 
@@ -122,19 +99,15 @@ public class RegionJdbcDaoMySqlTest {
         Region secondRegion = new Region(66, "Testowy region 2");
         Region thirdRegion = new Region(77, "Testowy region 3");
 
-        try {
-            regionsDAO.deleteBatch(asList(firstRegion, secondRegion,thirdRegion));
+        regionsDAO.deleteBatch(asList(firstRegion, secondRegion, thirdRegion));
 
-            countBeforeSave = regionsDAO.findAll().size();
-            logger.info("Regions before save: " + countBeforeSave);
+        countBeforeSave = regionsDAO.findAll().size();
+        logger.info("Regions before save: " + countBeforeSave);
 
-            regionsDAO.saveBatch(asList(firstRegion, secondRegion,thirdRegion));
+        regionsDAO.saveBatch(asList(firstRegion, secondRegion, thirdRegion));
 
-            countAfterSave = regionsDAO.findAll().size();
-            logger.info("Regions after save: " + countAfterSave);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        countAfterSave = regionsDAO.findAll().size();
+        logger.info("Regions after save: " + countAfterSave);
 
         Assert.assertTrue(countBeforeSave < countAfterSave);
     }

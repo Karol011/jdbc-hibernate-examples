@@ -18,7 +18,7 @@ public class CountryDAO {
         this.connector = connector;
     }
 
-    public List<Country> findCountryByName(String countryName) throws SQLException {
+    public List<Country> findCountryByName(String countryName) {
         List<Country> result = new ArrayList<>();
 
         String query = "{ CALL getCountryByName(?) }";

@@ -27,13 +27,7 @@ public class CountryJdbcDaoMySqlTest {
 
     @Test
     public void shouldReturnCountryByName(){
-        List<Country> countries = new ArrayList<>();
-
-        try {
-            countries.addAll(countryDAO.findCountryByName("Argentina"));
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
+        List<Country> countries = new ArrayList<>(countryDAO.findCountryByName("Argentina"));
 
         log.info("Countries count: " + countries.size());
 

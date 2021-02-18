@@ -41,13 +41,9 @@ public class RegionJdbcDaoH2Test {
         Region regionToSave = new Region(5, "Africa");
         Region regionFound = new Region();
 
-        try {
-            regionsDAO.save(regionToSave);
+        regionsDAO.save(regionToSave);
 
-            regionFound = regionsDAO.findById(5);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        regionFound = regionsDAO.findById(5);
 
         Assert.assertEquals(regionToSave, regionFound);
     }
@@ -57,17 +53,13 @@ public class RegionJdbcDaoH2Test {
         Region item = new Region();
         Region afterUpdate = new Region();
 
-        try {
-            item = regionsDAO.findById(5);
+        item = regionsDAO.findById(5);
 
-            item.setName("Africa Test");
+        item.setName("Africa Test");
 
-            regionsDAO.update(item);
+        regionsDAO.update(item);
 
-            afterUpdate = regionsDAO.findById(5);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        afterUpdate = regionsDAO.findById(5);
 
         Assert.assertEquals(afterUpdate.getName(), "Africa Test");
     }
@@ -77,15 +69,11 @@ public class RegionJdbcDaoH2Test {
         int countBeforeDelete = 0;
         int countAfterDelete = 0;
 
-        try {
-            countBeforeDelete = regionsDAO.findAll().size();
+        countBeforeDelete = regionsDAO.findAll().size();
 
-            regionsDAO.delete(5);
+        regionsDAO.delete(5);
 
-            countAfterDelete = regionsDAO.findAll().size();
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        countAfterDelete = regionsDAO.findAll().size();
 
         Assert.assertEquals(countAfterDelete, countBeforeDelete - 1);
     }
@@ -95,11 +83,7 @@ public class RegionJdbcDaoH2Test {
     public void shouldFindAllRegions() {
         List<Region> regions = new ArrayList<>();
 
-        try {
-            regions.addAll(regionsDAO.findAll());
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
+        regions.addAll(regionsDAO.findAll());
 
         logger.info("Regions count: " + regions.size());
 

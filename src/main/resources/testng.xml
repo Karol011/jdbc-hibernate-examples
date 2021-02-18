@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Zestaw testów" verbose="1">
+    <test name="Przykłady">
+        <classes>
+            <class name="com.sda.jdbc.examples.mysql.CountryJdbcDaoMySqlTest"/>
+            <class name="com.sda.jdbc.examples.mysql.LocationsJdbcDaoMySqlTest"/>
+            <class name="com.sda.jdbc.examples.mysql.RegionJdbcDaoMySqlTest"/>
+
+            <class name="com.sda.jdbc.examples.h2.RegionJdbcDaoH2Test"/>
+        </classes>
+    </test>
+
+    <test name="Zadania" enabled="true">
+        <classes>
+            <class name="com.sda.jdbc.todo.ZadaniaJDBC"/>
+<!--            <class name="com.sda.hibernate.todo.ZadaniaHibernate"/>-->
+        </classes>
+    </test>
+</suite>

@@ -18,7 +18,7 @@ public class LocationsDAO {
         this.connector = connector;
     }
 
-    public List<Location> findAll() throws SQLException {
+    public List<Location> findAll() {
         List<Location> result = new ArrayList<>();
 
         String query = "SELECT * FROM locations";
@@ -48,7 +48,7 @@ public class LocationsDAO {
         return result;
     }
 
-    public void saveBatch(List<Location> locations) throws SQLException {
+    public void saveBatch(List<Location> locations) {
         String query = "INSERT INTO locations (location_id, city, postal_code, street_address,state_province,country_id) ";
         query = query + "VALUES (?,?,?,?,?,?)";
 
@@ -67,10 +67,12 @@ public class LocationsDAO {
             }
 
             statement.executeBatch();
+        } catch (SQLException exception) {
+            log.error(exception.getMessage());
         }
     }
 
-    public void deleteBatch(List<Location> locations) throws SQLException {
+    public void deleteBatch(List<Location> locations) {
         String query = "DELETE FROM locations WHERE location_id = ? ";
 
         try (Connection connection = connector.getConnection();
@@ -83,10 +85,12 @@ public class LocationsDAO {
             }
 
             statement.executeBatch();
+        } catch (SQLException exception) {
+            log.error(exception.getMessage());
         }
     }
 
-    public List<Location> findByCityWithSQLInjection(String cityName) throws SQLException {
+    public List<Location> findByCityWithSQLInjection(String cityName) {
         List<Location> result = new ArrayList<>();
 
         String query = "SELECT * FROM locations WHERE city = " + cityName;
