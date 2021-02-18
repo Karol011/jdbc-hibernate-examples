@@ -44,14 +44,6 @@ public class ZadaniaJDBC {
     @Test(testName = "zad. 3 - Dodaj nowego pracownika")
     public void shouldSaveEmployee() {
         Employee employeeToSave = new Employee();
-        employeeToSave.setEmployeeId(250);
-        employeeToSave.setFirstName("Leo");
-        employeeToSave.setLastName("Messi");
-        employeeToSave.setEmail("leo.messi@wp.pl");
-        employeeToSave.setSalary(50000.0);
-        employeeToSave.setHireDate(LocalDate.now());
-        employeeToSave.setCommissionPct(0.0);
-        employeeToSave.setJobId("ST_MAN");
 
         employeesDAO.save(employeeToSave);
 
@@ -59,32 +51,27 @@ public class ZadaniaJDBC {
         Assert.assertNotNull(savedEmployee);
     }
 
-    @Test(testName = "zad. 4 - Usuń pracownika na podstawie dowolnych parametrów, np. identyfikator", dependsOnMethods = "shouldUpdateEmployeeEmail")
+    @Test(testName = "zad. 4 - Usuń pracownika na podstawie dowolnych parametrów, np. identyfikator")
     public void shouldDeleteEmployee() {
         Employee employee = new Employee();
-        employee.setEmployeeId(250);
 
         employeesDAO.delete(employee);
 
         Employee deletedEmployee = employeesDAO.findById(250);
 
-        Assert.assertNull(deletedEmployee);
+        Assert.assertEquals(1, 0);
     }
 
-    @Test(testName = "zad. 5 - Zmień dane pracownika np. e-mail", dependsOnMethods = "shouldSaveEmployee")
+    @Test(testName = "zad. 5 - Zmień dane pracownika np. e-mail")
     public void shouldUpdateEmployeeEmail() {
         Employee employeeBeforeUpdate = employeesDAO.findById(250);
 
-        String oldEmailValue = employeeBeforeUpdate.getEmail();
-
-        employeeBeforeUpdate.setEmail("leo.messi1988@gmail.com");
         employeesDAO.update(employeeBeforeUpdate);
 
         Employee employeeAfterUpdate = employeesDAO.findById(250);
 
         Assert.assertNotNull(employeeBeforeUpdate);
         Assert.assertNotNull(employeeAfterUpdate);
-        Assert.assertNotEquals(employeeAfterUpdate.getEmail(), oldEmailValue);
     }
 
     @Test(testName = "zad. 6 - Znajdź wszystkich pracowników")
@@ -96,58 +83,12 @@ public class ZadaniaJDBC {
 
     @Test(testName = "zad. 7 - Dodaj wielu pracowników przy pomocy jednego zapytania")
     public void shouldSaveBatchEmployees() {
-        Employee firstEmployee = Employee.builder().employeeId(300)
-                .firstName("Robert").lastName("Lewandowski").email("lewy@wp.pl")
-                .salary(50000.0)
-                .hireDate(LocalDate.now())
-                .commissionPct(0.0)
-                .jobId("ST_MAN")
-                .build();
-
-        Employee secondEmployee = Employee.builder().employeeId(400)
-                .firstName("Cristiano").lastName("Ronaldo").email("cristiano@wp.pl")
-                .salary(60000.0)
-                .hireDate(LocalDate.now())
-                .commissionPct(0.0)
-                .jobId("ST_MAN")
-                .build();
-
-        employeesDAO.saveBatch(asList(firstEmployee, secondEmployee));
-
-        List<Integer> employeeIds = employeesDAO.findAll().stream()
-                .map(Employee::getEmployeeId)
-                .collect(Collectors.toList());
-
-        Assert.assertTrue(employeeIds.contains(firstEmployee.getEmployeeId()));
-        Assert.assertTrue(employeeIds.contains(secondEmployee.getEmployeeId()));
+        Assert.assertEquals(1, 0);
     }
 
-    @Test(testName = "zad. 8 - Usuń wielu pracowników przy pomocy jednego zapytania", dependsOnMethods = "shouldSaveBatchEmployees")
+    @Test(testName = "zad. 8 - Usuń wielu pracowników przy pomocy jednego zapytania")
     public void shouldDeleteBatchEmployees() {
-        Employee firstEmployee = Employee.builder().employeeId(300)
-                .firstName("Robert").lastName("Lewandowski").email("lewy@wp.pl")
-                .salary(50000.0)
-                .hireDate(LocalDate.now())
-                .commissionPct(0.0)
-                .jobId("ST_MAN")
-                .build();
-
-        Employee secondEmployee = Employee.builder().employeeId(400)
-                .firstName("Cristiano").lastName("Ronaldo").email("cristiano@wp.pl")
-                .salary(60000.0)
-                .hireDate(LocalDate.now())
-                .commissionPct(0.0)
-                .jobId("ST_MAN")
-                .build();
-
-        employeesDAO.deleteBatch(asList(firstEmployee, secondEmployee));
-
-        List<Integer> employeeIds = employeesDAO.findAll().stream()
-                .map(Employee::getEmployeeId)
-                .collect(Collectors.toList());
-
-        Assert.assertFalse(employeeIds.contains(firstEmployee.getEmployeeId()));
-        Assert.assertFalse(employeeIds.contains(secondEmployee.getEmployeeId()));
+        Assert.assertEquals(1, 0);
     }
 
     @Test(testName = "zad. 9 - Policz pracowników danego działu na podstawie jego identyfikatora")
