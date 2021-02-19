@@ -41,9 +41,7 @@ public class ZadaniaHibernate {
         Assert.assertEquals(savedMovie.getTitle(), "Sprawa się rypła");
     }
 
-    @Test(testName = "zad. 3 - Usuń film na podstawie dowolnych parametrów, np. identyfikatora",
-            dependsOnMethods = "shouldSaveMovie",
-            expectedExceptions = NoResultException.class)
+    @Test(testName = "zad. 3 - Usuń film na podstawie dowolnych parametrów, np. identyfikatora")
     public void shouldDeleteMovie() {
         Movie movieBeforeDelete = movieDao.findByName("Sprawa się rypła");
 
@@ -51,18 +49,19 @@ public class ZadaniaHibernate {
 
         Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
 
-        Assert.assertNull(movieAfterDelete);
+        Assert.assertNotNull(movieBeforeDelete);
     }
 
     @Test(testName = "zad. 4 - Zmień dane o filmie np. tytuł")
     public void shouldUpdateMovieTitle() {
-//        Movie movieBeforeDelete = movieDao.findByName("Sprawa się rypła");
-//
-//        movieDao.delete(movieBeforeDelete);
-//
-//        Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
-//
-//        Assert.assertNull(movieAfterDelete);
+        Movie movieToUpdate = movieDao.findByName("Sprawa się rypła");
+        String oldTitle = movieToUpdate.getTitle();
+
+        movieDao.update(movieToUpdate);
+
+        Movie movieAfterUpdate = movieDao.findByName("Sprawa się rypła po raz kolejny");
+
+        Assert.assertNotNull(movieToUpdate);
     }
 
     @Test(testName = "zad. 5 - Znajdź wszystkie filmy")
@@ -120,7 +119,7 @@ public class ZadaniaHibernate {
 
     @Test(testName = "zad. 11 - (użyj Criteria API) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko")
     public void shouldFindAllMoviesForActorWithCriteriaAPI() {
-        List<Movie> result = movieDao.findAllMoviesForActorNativeSQL("Leo", "Messi");
+        List<Movie> result = movieDao.findAllMoviesForActorCriteriaAPI("Leo", "Messi");
 
         Assert.assertNotNull(result);
     }

@@ -32,8 +32,8 @@ public class PersonMovie implements Serializable {
     @JoinColumn(name = "type_id")
     private PersonType personType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "movie_id")
+//    private Movie movie;
 }
 
