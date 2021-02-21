@@ -8,13 +8,13 @@ import java.sql.*;
 public class HelloJDBC {
 
     // URL do bazy danych
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/hr?useUnicode=true&" +
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/hr_hibernate?useUnicode=true&" +
             "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
             "  serverTimezone=UTC&verifyServerCertificate=false&useSSL=true&requireSSL=true";
 
     // Dane do logowania - użytkownik i hasło
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "admin";
 
     public static void main(String[] args) {
         Connection conn = null;
