@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="JDBC i Hibiernate - testy" verbose="1">
+<suite name="JDBC i Hibernate - testy" verbose="1">
     <test name="Kompletne i działające przykłady">
         <classes>
             <class name="com.sda.jdbc.examples.mysql.CountryJdbcDaoMySqlTest"/>
