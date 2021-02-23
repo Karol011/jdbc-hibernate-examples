@@ -43,23 +43,36 @@ public class ZadaniaJDBC {
 
     @Test(testName = "zad. 3 - Dodaj nowego pracownika")
     public void shouldSaveEmployee() {
-        Employee employeeToSave = new Employee();
+        Employee testEmployee = Employee.builder()
+                .employeeId(250)
+                .firstName("testName")
+                .lastName("testLastName")
+                .email("testEmail123")
+                .hireDate(LocalDate.of(2001, 03, 02))
+                .salary(6000D)
+                .commissionPct(0.2)
+                .departmentId(50)
+                .jobId("AD_VP")
+                .managerId(120)
+                .phoneNumber("666.404.6667")
+                .build();
 
-        employeesDAO.save(employeeToSave);
+        employeesDAO.save(testEmployee);
 
         Employee savedEmployee = employeesDAO.findById(250);
         Assert.assertNotNull(savedEmployee);
     }
 
     @Test(testName = "zad. 4 - Usuń pracownika na podstawie dowolnych parametrów, np. identyfikator")
+
     public void shouldDeleteEmployee() {
-        Employee employee = new Employee();
+        Employee employee = Employee.builder()
+                .employeeId(250)
+                .build();
 
         employeesDAO.delete(employee);
 
-        Employee deletedEmployee = employeesDAO.findById(250);
-
-        Assert.assertEquals(1, 0);
+        Assert.assertNull(employeesDAO.findById(employee.getEmployeeId()));
     }
 
     @Test(testName = "zad. 5 - Zmień dane pracownika np. e-mail")
@@ -72,6 +85,7 @@ public class ZadaniaJDBC {
 
         Assert.assertNotNull(employeeBeforeUpdate);
         Assert.assertNotNull(employeeAfterUpdate);
+
     }
 
     @Test(testName = "zad. 6 - Znajdź wszystkich pracowników")
