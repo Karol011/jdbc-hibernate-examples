@@ -121,6 +121,19 @@ public class EmployeesDAO {
     }
 
     public void saveBatch(List<Employee> employees) {
+        String query = "INSERT INTO employees (employee_id, first_name, last_name, email, phone_number, hire_date, " +
+                "job_id, salary, commission_pct, manager_id, department_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        try (Connection connection = mySqlConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (Employee employee : employees) {
+                fromEntity(preparedStatement, employee);
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     public void deleteBatch(List<Employee> employees) {

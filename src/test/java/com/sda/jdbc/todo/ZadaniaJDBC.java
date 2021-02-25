@@ -97,7 +97,38 @@ public class ZadaniaJDBC {
 
     @Test(testName = "zad. 7 - Dodaj wielu pracowników przy pomocy jednego zapytania")
     public void shouldSaveBatchEmployees() {
-        Assert.assertEquals(1, 0);
+
+        Employee employee3 = Employee.builder()
+                .employeeId(999)
+                .firstName("yuuu")
+                .lastName("surname")
+                .email("5yh")
+                .hireDate(LocalDate.of(2001, 3, 2))
+                .salary(6000D)
+                .commissionPct(0.2)
+                .departmentId(50)
+                .jobId("AD_VP")
+                .managerId(120)
+                .phoneNumber("666.404.6667")
+                .build();
+
+        Employee employee4 = Employee.builder()
+                .employeeId(888)
+                .firstName("tetttt")
+                .lastName("surname")
+                .email("xxc")
+                .hireDate(LocalDate.of(2001, 3, 2))
+                .salary(6000D)
+                .commissionPct(0.2)
+                .departmentId(50)
+                .jobId("AD_VP")
+                .managerId(120)
+                .phoneNumber("666.404.6667")
+                .build();
+
+        employeesDAO.saveBatch(List.of(employee3,employee4));
+        Assert.assertNotNull(employeesDAO.findById(999));
+        Assert.assertNotNull(employeesDAO.findById(888));
     }
 
     @Test(testName = "zad. 8 - Usuń wielu pracowników przy pomocy jednego zapytania")
