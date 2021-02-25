@@ -8,7 +8,11 @@ import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Log4j
 public class EmployeesDAO {
@@ -86,6 +90,8 @@ public class EmployeesDAO {
             preparedStatement.setInt(9, employee.getManagerId());
             preparedStatement.setInt(10, employee.getDepartmentId());
             preparedStatement.setInt(11, employee.getEmployeeId());
+
+
             preparedStatement.executeUpdate();
             logger.info("employee " + employee.getEmployeeId() + " succesfully updated");
         } catch (SQLException e) {
@@ -95,7 +101,23 @@ public class EmployeesDAO {
 
 
     public List<Employee> findAll() {
-        return null;
+        String query = "SELECT * FROM employees";
+        List<Employee> employees = new LinkedList<>();
+        try (Connection connection = mySqlConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            logger.info(query);
+            while (resultSet.next()) {
+                employees.add(toEntity(resultSet));
+            }
+            logger.info("succesfully found " + employees.size() + " employees ");
+            resultSet.close();
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return employees;
     }
 
     public void saveBatch(List<Employee> employees) {

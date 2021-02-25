@@ -26,8 +26,8 @@ public class Test {
         Employee employee2 = Employee.builder()
                 .employeeId(666)
                 .firstName("testName")
-                .lastName("testLastName")
-                .email("changedEmail")
+                .lastName("surname")
+                .email("ttttt")
                 .hireDate(LocalDate.of(2001, 3, 2))
                 .salary(6000D)
                 .commissionPct(0.2)
@@ -36,8 +36,10 @@ public class Test {
                 .managerId(120)
                 .phoneNumber("666.404.6667")
                 .build();
-        employeesDAO.update(employee2);
-     //   System.out.println(employeesDAO.findById(employee2.getEmployeeId()).getEmail());
+       // employeesDAO.update(employee2);
+       // System.out.println(employeesDAO.findById(employee2.getEmployeeId()).getEmail());
+        employeesDAO.findAll();
+       // System.out.println(employeesDAO.findAll());
 
     }
 }
