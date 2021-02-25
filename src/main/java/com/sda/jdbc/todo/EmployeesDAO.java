@@ -58,6 +58,7 @@ public class EmployeesDAO {
                 "job_id, salary, commission_pct, manager_id, department_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection connection = mySqlConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, employee.getEmployeeId());
             fromEntity(preparedStatement, employee);
             preparedStatement.executeUpdate();
 
@@ -67,7 +68,31 @@ public class EmployeesDAO {
     }
 
     public void update(Employee employee) {
+        // String query = "UPDATE employees SET (first_name, last_name, email, phone_number, hire_date, " +
+        //        "job_id, salary, commission_pct, manager_id, department_id) VALUES (?,?,?,?,?,?,?,?,?,?) WHERE employee_id = ?";
+        String query = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?" +
+                ",manager_id = ?, department_id = ?" +
+                " WHERE employee_id = ?";
+        try (Connection connection = mySqlConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, employee.getFirstName());
+            preparedStatement.setString(2, employee.getLastName());
+            preparedStatement.setString(3, employee.getEmail());
+            preparedStatement.setString(4, employee.getPhoneNumber());
+            preparedStatement.setDate(5, Date.valueOf(employee.getHireDate()));
+            preparedStatement.setString(6, employee.getJobId());
+            preparedStatement.setDouble(7, employee.getSalary());
+            preparedStatement.setDouble(8, employee.getCommissionPct());
+            preparedStatement.setInt(9, employee.getManagerId());
+            preparedStatement.setInt(10, employee.getDepartmentId());
+            preparedStatement.setInt(11, employee.getEmployeeId());
+            preparedStatement.executeUpdate();
+            logger.info("employee " + employee.getEmployeeId() + " succesfully updated");
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
+
 
     public List<Employee> findAll() {
         return null;
