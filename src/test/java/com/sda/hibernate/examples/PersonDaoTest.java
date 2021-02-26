@@ -62,6 +62,10 @@ public class PersonDaoTest {
         personDao.delete(person);
     }
 
+    /*
+        Poniższy test pokazuje przykład działania HibernateValidator.
+        Więcej informacji tutaj: https://www.baeldung.com/hibernate-validator-constraints
+     */
     @Test
     public void shouldRunValidation() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
