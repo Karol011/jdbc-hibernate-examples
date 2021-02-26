@@ -12,6 +12,9 @@ import org.hibernate.envers.query.AuditEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Korzystamy z wzorca DAO podobnie jak przy okazji JDBC (np. klasa RegionsDAO)
+ */
 public class CountryDao {
 
     private final Logger logger = Logger.getLogger(CountryDao.class);
@@ -19,11 +22,20 @@ public class CountryDao {
     public void save(Country Country) {
         Transaction transaction = null;
 
+        /*
+            Przy pomocy konstrukcji try with resource przygotowujemy obiekt Session, który umożliwi wykonywania zapytań
+         */
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            //  otwieramy transakcję
             transaction = session.beginTransaction();
+
+            // tutaj korzystamy już z wcześniej zdefiniowanych obiektów
             session.save(Country);
+
+            // jeżeli wszystkie operacje zakończą się pomyślnie to kończymy transakcję przy pomocy commit
             transaction.commit();
         } catch (HibernateException e) {
+            // jeżeli po drodze wystąpi jakiś błąd to transakcja powinna zostać wycofana przy pomocy rollback
             if (transaction != null)
                 transaction.rollback();
 
@@ -47,6 +59,7 @@ public class CountryDao {
         }
     }
 
+    // pamiętajcie o tym, że w przypadku gdy zwracamy collection rezultatem nigdy nie był null tylko pusta kolekcja
     public List<Country> findAll() {
         Transaction transaction = null;
         List<Country> countries = new ArrayList<>();
@@ -54,6 +67,10 @@ public class CountryDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
+            /*
+                poniżej mamy przykład zapytania przy pomocy HQL, więcej na ten temat:
+                https://www.tutorialspoint.com/hibernate/hibernate_query_language.htm
+             */
             countries =
                     session.createQuery("FROM Country ").getResultList();
 
@@ -131,6 +148,11 @@ public class CountryDao {
         }
     }
 
+    /*
+        W klasie Country użyta została adnotacja @Audited.
+        Dla przypomnienia służy ona do pokazania działania zapisu historii modyfikacji danych: https://vladmihalcea.com/the-best-way-to-implement-an-audit-log-using-hibernate-envers/
+        Po wykonaniu odpowiedniej implementacji jest możliwość odczytania takiej historii. Przykład znajduje się poniżej.
+     */
     public void shouldDisplayHistoryForRecord() {
         Transaction transaction = null;
 
@@ -153,8 +175,6 @@ public class CountryDao {
             logger.error(e.getMessage(), e);
         }
 
-        countries.forEach(
-                Country::toString
-        );
+        countries.forEach(logger::info);
     }
 }

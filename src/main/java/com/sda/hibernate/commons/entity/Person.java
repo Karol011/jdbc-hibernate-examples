@@ -1,5 +1,8 @@
 package com.sda.hibernate.commons.entity;
 
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
@@ -7,7 +10,9 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "persons")
 public class Person {
@@ -16,10 +21,12 @@ public class Person {
     @Column(name = "person_id")
     private Integer id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
+    @Size(min = 2)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
+    @Size(min = 2)
     private String lastName;
 
     @Column(name = "date_of_brith")

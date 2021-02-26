@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--
+    Odwzorowanie w świecie obiektowym tabeli z gatunkami filmów (genres).
+    Wykonane zostało za pomocą konfiguracji XML.
+-->
+<hibernate-mapping>
+    <class name = "com.sda.hibernate.commons.entity.Genre" table = "GENRES">
+
+        <meta attribute = "class-description">
+            This class contains the genre detail.
+        </meta>
+
+        <id name = "id" type = "int" column = "genre_id">
+            <generator class="assigned"/>
+        </id>
+
+        <property name = "name" column = "name" type = "string"/>
+    </class>
+</hibernate-mapping>

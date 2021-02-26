@@ -10,8 +10,6 @@ import org.testng.annotations.Test;
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 
-import static org.testng.Assert.assertTrue;
-
 public class CountryDaoTest {
 
     private static final Logger logger = Logger.getLogger(CountryDaoTest.class);
@@ -47,7 +45,7 @@ public class CountryDaoTest {
     }
 
     @Test
-    public void shouldUpdatePoland(){
+    public void shouldUpdatePoland() {
         Country poland = countryDao.findById(1);
         poland.setName("Poland 2");
 
@@ -60,10 +58,15 @@ public class CountryDaoTest {
     }
 
     @Test(dependsOnMethods = "shouldUpdatePoland")
-    public void shouldDisplayHistoryForRecord(){
+    public void shouldDisplayHistoryForRecord() {
         countryDao.shouldDisplayHistoryForRecord();
     }
 
+    /*
+        Przykład działania OptimisticLock w praktyce.
+        Związane z adnotacją @OptimisticLocking w klasie Country.
+        Więcej informacji: https://vladmihalcea.com/optimistic-locking-version-property-jpa-hibernate/
+     */
     @Test(expectedExceptions = OptimisticLockException.class)
     public void testOptimisticLocking() {
         Country countryVersion1 = countryDao.findById(1);
@@ -74,21 +77,5 @@ public class CountryDaoTest {
 
         countryVersion2.setName("Poland 2");
         countryDao.update(countryVersion2);
-    }
-
-    //@Test
-    public void testEqualsAndHashCode() {
-        Country countryOne = countryDao.findById(1);
-
-        Country countryTwo = countryDao.findById(1);
-
-        logger.info(System.identityHashCode(countryOne));
-        logger.info(System.identityHashCode(countryTwo));
-
-        logger.info(countryOne.hashCode());
-        logger.info(countryTwo.hashCode());
-
-        assertTrue(countryOne.equals(countryTwo));
-        //assertNotSame(countryOne, countryTwo);
     }
 }
