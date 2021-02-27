@@ -3,10 +3,15 @@ package com.sda.hibernate.examples;
 import com.sda.hibernate.commons.dao.PersonDao;
 import com.sda.hibernate.commons.entity.Country;
 import com.sda.hibernate.commons.entity.Person;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
@@ -51,10 +56,31 @@ public class PersonDaoTest {
     }
 
     @Test(dependsOnMethods = "shouldSavePerson")
-    public void deletePerson(){
+    public void deletePerson() {
         Person person = personDao.findByFirstAndLastName("Emmanuel", "Olisadebe");
 
         personDao.delete(person);
+    }
+
+    /*
+        Poniższy test pokazuje przykład działania HibernateValidator.
+        Więcej informacji tutaj: https://www.baeldung.com/hibernate-validator-constraints
+     */
+    @Test
+    public void shouldRunValidation() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Person person = Person.builder()
+                .id(10)
+                .firstName("P")
+                .lastName("M")
+                .build();
+
+        Set<ConstraintViolation<Person>> constraintViolations =
+                validator.validate(person);
+
+        assertEquals( 2, constraintViolations.size() );
     }
 
 }

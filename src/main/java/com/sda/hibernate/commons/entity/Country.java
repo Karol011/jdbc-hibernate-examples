@@ -9,12 +9,17 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import java.util.Objects;
 
-@NoArgsConstructor
+/*
+    Odwzorowanie w świecie obiektowym tabeli zawierającej dane o krajach (countries).
+    Wykonane zostało za pomocą annotations.
+    https://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html
+ */
+@NoArgsConstructor // lombok: https://projectlombok.org/features/all
 @Data
 @Entity
 @Table(name = "countries")
-@Audited // do pokazania działania zapisu historii
-@OptimisticLocking(type = OptimisticLockType.VERSION) // do pokazania działania optimistic locking
+@Audited // do pokazania działania zapisu historii modyfikacji danych: https://vladmihalcea.com/the-best-way-to-implement-an-audit-log-using-hibernate-envers/
+@OptimisticLocking(type = OptimisticLockType.VERSION) // do pokazania działania optimistic locking: https://vladmihalcea.com/optimistic-locking-version-property-jpa-hibernate/
 public class Country {
 
     public Country(Integer id, String name) {
@@ -35,18 +40,4 @@ public class Country {
 
 //    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
 //    private List<Person> persons;
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Country country = (Country) o;
-//        return id.equals(country.id) &&
-//                name.equals(country.name);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name);
-//    }
 }
