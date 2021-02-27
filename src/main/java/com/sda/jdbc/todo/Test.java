@@ -69,7 +69,8 @@ public class Test {
        // System.out.println(employeesDAO.findById(employee2.getEmployeeId()).getEmail());
         //employeesDAO.findAll();
        // System.out.println(employeesDAO.findAll());
-        employeesDAO.saveBatch(List.of(employee3,employee4));
+  //      employeesDAO.saveBatch(List.of(employee3,employee4));
+        //employeesDAO.deleteBatch(List.of(employee2,employee3,employee4));
 
     }
 }

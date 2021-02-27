@@ -8,11 +8,8 @@ import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Log4j
 public class EmployeesDAO {
@@ -49,9 +46,6 @@ public class EmployeesDAO {
 
             preparedStatement.setInt(1, employee.getEmployeeId());
             preparedStatement.executeUpdate();
-
-            //  resultSet.close();
-
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
         }
@@ -72,8 +66,6 @@ public class EmployeesDAO {
     }
 
     public void update(Employee employee) {
-        // String query = "UPDATE employees SET (first_name, last_name, email, phone_number, hire_date, " +
-        //        "job_id, salary, commission_pct, manager_id, department_id) VALUES (?,?,?,?,?,?,?,?,?,?) WHERE employee_id = ?";
         String query = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?" +
                 ",manager_id = ?, department_id = ?" +
                 " WHERE employee_id = ?";
@@ -137,6 +129,19 @@ public class EmployeesDAO {
     }
 
     public void deleteBatch(List<Employee> employees) {
+        String query = "DELETE FROM employees WHERE employee_id = ?)";
+        try (Connection connection = mySqlConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (Employee employee : employees) {
+                preparedStatement.setInt(1, employee.getEmployeeId());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            logger.info("succesfully removed " + employees.size() + " records");
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
     public static Employee toEntity(ResultSet resultSet) throws SQLException {
