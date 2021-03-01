@@ -43,13 +43,19 @@ public class ZadaniaHibernate {
 
     @Test(testName = "zad. 3 - Usuń film na podstawie dowolnych parametrów, np. identyfikatora")
     public void shouldDeleteMovie() {
+
         Movie movieBeforeDelete = movieDao.findByName("Sprawa się rypła");
 
         movieDao.delete(movieBeforeDelete);
 
         Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
 
-        Assert.assertNotNull(movieBeforeDelete);
+        Assert.assertNull(movieBeforeDelete);
+        // Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
+        //Movie movieAfterDelete = movieDao.delete(movieBeforeDelete);
+
+        // Assert.assertNotNull(movieBeforeDelete);
+
     }
 
     @Test(testName = "zad. 4 - Zmień dane o filmie np. tytuł")
@@ -103,6 +109,7 @@ public class ZadaniaHibernate {
 
         Assert.assertTrue(personList.size() > 0);
     }
+
     @Test(testName = "zad. 9 - (użyj NativeSQL) Znajdź wszystkie filmy w których wystąpił aktor o podanych parametrach, np. imię i nazwisko")
     public void shouldFindAllMoviesForActorWithNativeSQL() {
         List<Movie> result = movieDao.findAllMoviesForActorNativeSQL("Leo", "Messi");
@@ -128,7 +135,7 @@ public class ZadaniaHibernate {
     public void shouldSaveCascadeDataAboutMovieAndPersons() {
         Movie existingMovie = movieDao.findById(150);
 
-        if(existingMovie != null)
+        if (existingMovie != null)
             movieDao.delete(existingMovie);
 
         Movie movie = new Movie();

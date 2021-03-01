@@ -36,7 +36,7 @@
 
         <property name="format_sql">true</property>
 
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">5</property>
 
         <property name="current_session_context_class">thread</property>
 
