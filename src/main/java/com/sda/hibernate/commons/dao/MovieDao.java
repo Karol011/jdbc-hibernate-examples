@@ -31,7 +31,7 @@ public class MovieDao {
                     .getSingleResult();
 
             transaction.commit();
-            logger.info("Object found " + movie.toString());
+   //         logger.info("Object found " + movie.toString());
             return movie;
         } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
@@ -50,10 +50,11 @@ public class MovieDao {
 
             Movie movie = (Movie) session.createQuery(query)
                     .setParameter("title", title)
-                    .getSingleResult();
+                    .uniqueResultOptional()
+                    .orElse(null);
             transaction.commit();
 
-            logger.info("Object found " + movie.toString());
+  //          logger.info("Object found " + movie.toString());
 
             return movie;
 
@@ -102,6 +103,7 @@ public class MovieDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(movie);
+
             transaction.commit();
         }catch (HibernateException e) {
             logger.error(e.getMessage(), e);

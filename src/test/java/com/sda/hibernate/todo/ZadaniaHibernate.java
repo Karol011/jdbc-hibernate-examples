@@ -50,11 +50,8 @@ public class ZadaniaHibernate {
 
         Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
 
-        Assert.assertNull(movieBeforeDelete);
-        // Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
-        //Movie movieAfterDelete = movieDao.delete(movieBeforeDelete);
+        Assert.assertNull(movieAfterDelete);
 
-        // Assert.assertNotNull(movieBeforeDelete);
 
     }
 
