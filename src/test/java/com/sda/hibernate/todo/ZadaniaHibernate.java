@@ -41,30 +41,34 @@ public class ZadaniaHibernate {
         Assert.assertEquals(savedMovie.getTitle(), "Sprawa się rypła");
     }
 
-    @Test(testName = "zad. 3 - Usuń film na podstawie dowolnych parametrów, np. identyfikatora")
+    @Test(testName = "zad. 3 - Usuń film na podstawie dowolnych parametrów, np. identyfikatora", dependsOnMethods = "shouldUpdateMovieTitle")
     public void shouldDeleteMovie() {
 
-        Movie movieBeforeDelete = movieDao.findByName("Sprawa się rypła");
+        Movie movieBeforeDelete = movieDao.findByName("Sprawa się rypła po raz kolejny");
 
         movieDao.delete(movieBeforeDelete);
 
-        Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła");
+        Movie movieAfterDelete = movieDao.findByName("Sprawa się rypła po raz kolejny");
 
         Assert.assertNull(movieAfterDelete);
 
 
     }
 
-    @Test(testName = "zad. 4 - Zmień dane o filmie np. tytuł")
+    @Test(testName = "zad. 4 - Zmień dane o filmie np. tytuł", dependsOnMethods = "shouldSaveMovie")
     public void shouldUpdateMovieTitle() {
         Movie movieToUpdate = movieDao.findByName("Sprawa się rypła");
         String oldTitle = movieToUpdate.getTitle();
+        movieToUpdate.setTitle("Sprawa się rypła po raz kolejny");
+
 
         movieDao.update(movieToUpdate);
 
         Movie movieAfterUpdate = movieDao.findByName("Sprawa się rypła po raz kolejny");
 
-        Assert.assertNotNull(movieToUpdate);
+        String expected = "Sprawa się rypła po raz kolejny";
+        Assert.assertNotNull(movieAfterUpdate);
+        Assert.assertNotEquals(expected, oldTitle);
     }
 
     @Test(testName = "zad. 5 - Znajdź wszystkie filmy")
@@ -78,9 +82,10 @@ public class ZadaniaHibernate {
     public void shouldFindAllActorsForMovieWithNativeSQL() {
         List<Person> personList = movieDao.findAllActorsForMovieNativeSQL(1);
 
-//        personList.forEach(
-//                person -> log.info(person.getCountry().getName())
-//        );
+
+        personList.forEach(
+                person -> log.info(person.getCountry().getName())
+        );
 
         Assert.assertTrue(personList.size() > 0);
     }

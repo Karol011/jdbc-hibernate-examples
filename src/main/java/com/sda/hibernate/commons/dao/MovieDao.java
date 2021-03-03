@@ -31,7 +31,7 @@ public class MovieDao {
                     .getSingleResult();
 
             transaction.commit();
-   //         logger.info("Object found " + movie.toString());
+            //         logger.info("Object found " + movie.toString());
             return movie;
         } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
@@ -54,11 +54,11 @@ public class MovieDao {
                     .orElse(null);
             transaction.commit();
 
-  //          logger.info("Object found " + movie.toString());
+            //          logger.info("Object found " + movie.toString());
 
             return movie;
 
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
             if (transaction != null)
                 transaction.rollback();
@@ -74,7 +74,7 @@ public class MovieDao {
             session.save(movie);
 
             transaction.commit();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
             if (transaction != null)
                 transaction.rollback();
@@ -90,7 +90,7 @@ public class MovieDao {
             session.delete(movie);
             transaction.commit();
             logger.info("succesfully deleted movie " + movie.getId());
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
             if (transaction != null)
                 transaction.rollback();
@@ -105,7 +105,7 @@ public class MovieDao {
             session.update(movie);
 
             transaction.commit();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
             if (transaction != null)
                 transaction.rollback();
@@ -128,7 +128,7 @@ public class MovieDao {
             movies = session.createQuery("FROM Movie").getResultList();
             transaction.commit();
             return movies;
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             logger.error(e.getMessage(), e);
             if (transaction != null)
                 transaction.rollback();
@@ -137,11 +137,65 @@ public class MovieDao {
     }
 
     public List<Person> findAllActorsForMovieNativeSQL(Integer movieId) {
-        return null;
+        final String ACTOR_ID = "1";
+        String query = "SELECT " +
+                "    persons.person_id," +
+                "    persons.first_name," +
+                "    persons.last_name," +
+                "    movies.title " +
+                "    person_types.type_id " +
+                "FROM" +
+                "    persons" +
+                "        JOIN" +
+                "    persons_movies ON persons_movies.person_id " +
+                "JOIN" +
+                "    movies ON movies.movie_id " +
+                "JOIN person_types on persons.person_id " +
+                "WHERE" +
+                "    person_types.type_id = 1 " +
+                "AND " +
+                " movies.movie_id = :id";
+
+        Transaction transaction = null;
+        List actors = new ArrayList<>();
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            actors = session.createNativeQuery(query)
+                    .setParameter("id", movieId)
+                    .getResultList();
+            transaction.commit();
+            return actors;
+        } catch (HibernateException e) {
+            logger.error(e.getMessage(), e);
+            if (transaction != null)
+                transaction.rollback();
+        }
+        return actors;
     }
 
+    //użyj HQL)  Znajdź dane wszystkich aktorów występujących w filmie, np. na podstawie ID filmu")
     public List<Person> findAllActorsForMovieHQL(Integer movieId) {
-        return null;
+        Transaction transaction = null;
+        List<Person> actors = new ArrayList<>();
+        String query = "SELECT pm.person FROM PersonMovie pm " +
+                "JOIN FETCH Movie m " +
+                "JOIN FETCH Person p " +
+                "WHERE movie_id = :id ";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            actors = session.createQuery(query)
+                    .setParameter("id", movieId)
+                    .getResultList();
+            transaction.commit();
+            return actors;
+        } catch (HibernateException e) {
+            logger.error(e.getMessage(), e);
+            if (transaction != null)
+                transaction.rollback();
+        }
+        return actors;
     }
 
     public List<Person> findAllActorsForMovieCriteriaAPI(Integer movieId) {
