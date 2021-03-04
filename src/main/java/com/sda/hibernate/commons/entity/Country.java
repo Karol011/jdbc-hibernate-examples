@@ -7,6 +7,7 @@ import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 /*
@@ -18,7 +19,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "countries")
-@Audited // do pokazania działania zapisu historii modyfikacji danych: https://vladmihalcea.com/the-best-way-to-implement-an-audit-log-using-hibernate-envers/
+//@Audited // do pokazania działania zapisu historii modyfikacji danych: https://vladmihalcea.com/the-best-way-to-implement-an-audit-log-using-hibernate-envers/
 @OptimisticLocking(type = OptimisticLockType.VERSION) // do pokazania działania optimistic locking: https://vladmihalcea.com/optimistic-locking-version-property-jpa-hibernate/
 public class Country {
 
@@ -38,6 +39,6 @@ public class Country {
     @Version
     private Integer version;
 
-//    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
-//    private List<Person> persons;
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+    private List<Person> persons;
 }

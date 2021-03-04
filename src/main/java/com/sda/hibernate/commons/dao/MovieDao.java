@@ -10,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,27 +145,37 @@ public class MovieDao {
                 "    persons.last_name," +
                 "    movies.title " +
                 "    person_types.type_id " +
-                "FROM" +
+                " FROM " +
                 "    persons" +
                 "        JOIN" +
-                "    persons_movies ON persons_movies.person_id " +
+                "    persons_movies ON persons_movies.person_id = persons.person_id" +
                 "JOIN" +
-                "    movies ON movies.movie_id " +
-                "JOIN person_types on persons.person_id " +
+                "    movies ON movies.movie_id = persons_movies.movie_id" +
+                "JOIN person_types on persons.person_id = persons_movies.type_id " +
                 "WHERE" +
                 "    person_types.type_id = 1 " +
                 "AND " +
                 " movies.movie_id = :id";
 
+
         Transaction transaction = null;
-        List actors = new ArrayList<>();
+        List<Person> actors = new ArrayList<>();
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            actors = session.createNativeQuery(query)
+          /*  actors = session.createNativeQuery(query, Person.class)
                     .setParameter("id", movieId)
+                   // .addEntity(Person.class)
                     .getResultList();
+*/
+            actors =
+                    session.createNativeQuery("SELECT p.*, c.* FROM persons_movies pm " +
+                            "JOIN persons p ON pm.person_id = p.person_id " +
+                            "JOIN countries c ON p.country_id = c.country_id " +
+                            "WHERE pm.movie_id = :movieId AND pm.type_id = 1", Person.class).
+                            setParameter("movieId", movieId).
+                            getResultList();
             transaction.commit();
             return actors;
         } catch (HibernateException e) {
@@ -183,6 +194,8 @@ public class MovieDao {
                 "JOIN FETCH Movie m " +
                 "JOIN FETCH Person p " +
                 "WHERE movie_id = :id ";
+
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             actors = session.createQuery(query)
